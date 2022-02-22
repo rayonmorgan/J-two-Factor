@@ -1,6 +1,6 @@
 package morgan.rayon.standard;
 
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Random;
 
 public class TwoFactorAuthentication {
