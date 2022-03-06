@@ -15,6 +15,10 @@ public class TwoFactorAuthenticationTest {
 		twofactorauthentication = new TwoFactorAuthentication(); 
 	}
 
+	/**
+	 * <h2>Execute test to validate generated code is of length 4 </h2>
+	 * <p> </p>
+	 */
 	@Test
 	public void testGenerateCode_sizeFour() {
 		
