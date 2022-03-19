@@ -1,9 +1,12 @@
 package morgan.rayon.standard;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import morgan.rayon.prodInterface.DbAuthenticate;
 
 public class TwoFactorAuthenticationTest {
 	
@@ -13,6 +16,9 @@ public class TwoFactorAuthenticationTest {
 	public void ExecuteBefore()
 	{
 		twofactorauthentication = new TwoFactorAuthentication(); 
+		
+		//creating mocking implementation for DBAuthenticate
+		//DbAuthenticateInterface dbauthenticate = mock(DbAuthenticateInterface.class);
 	}
 
 	/**

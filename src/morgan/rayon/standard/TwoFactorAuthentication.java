@@ -2,6 +2,7 @@ package morgan.rayon.standard;
 
 import java.util.*;
 import java.util.Random;
+import morgan.rayon.prodInterface.*;
 
 public class TwoFactorAuthentication {
 
@@ -13,13 +14,13 @@ public class TwoFactorAuthentication {
 	String vercode;
 	// number of password attempt made
 	int cred_attemp = 0;
-	// variable of class which deals with database transactions
+	// variable of class/interface which deals with database transactions
 	DbAuthenticate dbauthenticate;
 	// variable of class whichs deals with sending email to user
 	Mail mail;
 
 	public TwoFactorAuthentication() {
-		dbauthenticate = new DbAuthenticate();
+		dbauthenticate = new DbAuthenticateimpl();
 		mail = new Mail();
 
 	}
@@ -53,10 +54,12 @@ public class TwoFactorAuthentication {
 	 * 
 	 * @param username
 	 * @param password
+	 * @return boolean
 	 */
-	public void authenticate(String username, String password, boolean twoFactor) {
+	public boolean authenticate(String username, String password, boolean twoFactor) {
 		String generatedCode = "";
 		int size = 4; // use to set length of random code to be generated
+		boolean access_status = false; //keep track of whether the user credentials were validated correctly
 
 		this.setUsername(username);
 		this.setPassword(password);
@@ -64,12 +67,18 @@ public class TwoFactorAuthentication {
 			// if two factor is enabled then generate code and send it to client
 			if (twoFactor) {
 				generatedCode = generateCode(size);
-				System.out.println("Random code is : " + generatedCode);
+				//send email code
+				//System.out.println("Random code is : " + generatedCode);
 			}
-		} else {
-			//
+			else { //user credentials match and twoFactor is not used. 
+				access_status = true;
+			}
+		} else {//user entered incorrect credentials. 
+			
+			access_status = false;
 		}
-
+		
+		return access_status;
 	}
 
 	// generage sequence of characters used to validate user
